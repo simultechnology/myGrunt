@@ -5,6 +5,15 @@ module.exports = function (grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        sass: {
+            options: {
+                style: 'expanded'
+            },
+            build: {
+                src : ['src/*.scss'],
+                dest: 'build/styles.css'
+            }
+        },
         less: {
 //            options: {
 //                compress: true
@@ -13,32 +22,12 @@ module.exports = function (grunt) {
                 src : ['src/style1.less', 'src/style2.less'],
                 dest: 'build/styles.css'
             }
-//            build1: {
-//                src: 'src/style1.less',
-//                dest: 'build/styles1.css'
-//            },
-//            build2: {
-//                /*
-//                src: 'src/style2.less',
-//                dest: 'build/styles2.css'
-//                */
-//                /*
-//                files: {
-//                    'build/styles.css': 'src/style2.less'
-//                }
-//                */
-//                files: {
-//                    //'build/styles.css': ['src/style1.less', 'src/style2.less']
-//                    //'build/styles.css': 'src/*.less'
-//                    'build/styles.css': 'src/**/*.less' // 配下のディレクトリ全部
-//                }
-//            }
         },
 
         csslint: {
             check: {
                 //src: 'build/styles.css'
-                src: '<%= less.build.dest %>'
+                src: '<%= sass.build.dest %>'
             }
         },
 
@@ -48,7 +37,7 @@ module.exports = function (grunt) {
                     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
                 },
                 files: {
-                    'build/styles.min.css': '<%= less.build.dest %>'
+                    'build/styles.min.css': '<%= sass.build.dest %>'
                 }
             }
         },
@@ -57,15 +46,15 @@ module.exports = function (grunt) {
             options: {
                 livereload: true
             },
-            files: 'src/*.less',
-            tasks: ['less', 'csslint', 'cssmin']
+            files: ['src/**/*.scss', '*.html'],
+            tasks: ['sass', 'csslint', 'cssmin']
         },
 
         connect: {
             server: {
                 options: {
-                    port: 8080,
-                    hostname: 'simusimu'
+                    port: 11111,
+                    hostname: 'localhost'
                 }
             }
         }
@@ -73,6 +62,7 @@ module.exports = function (grunt) {
 
     // plugin
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -80,7 +70,7 @@ module.exports = function (grunt) {
 
     // tasks
     //grunt.registerTask('default', 'less');
-    grunt.registerTask('default', ['less', 'csslint', 'cssmin', 'connect', 'watch']);
+    grunt.registerTask('default', ['sass', 'csslint', 'cssmin', 'connect', 'watch']);
     grunt.registerTask('task1', 'less:build1');
     grunt.registerTask('task2', 'less:build2');
 

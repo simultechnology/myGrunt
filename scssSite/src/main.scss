@@ -1,0 +1,17 @@
+/*
+this is first scss sample.
+*/
+.main {
+  width: 90%;
+  p {
+    font-size: 20px;
+    color: #009900;
+    margin: 1px;
+    a {
+      text-decoration: none;
+      &:hover {
+        font-weight: bolder;
+      }
+    }
+  }
+}
