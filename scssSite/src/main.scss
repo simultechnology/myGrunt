@@ -2,11 +2,12 @@
 this is first scss sample.
 */
 .main {
-  width: 90%;
+  border: 1px solid #00008b;
+
   p {
     font-size: 20px;
     color: #009900;
-    margin: 1px;
+    margin: 2px;
     a {
       text-decoration: none;
       &:hover {
