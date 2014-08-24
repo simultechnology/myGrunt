@@ -6,28 +6,25 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         sass: {
-            options: {
-                style: 'expanded'
-            },
-            build: {
-                src : ['src/*.scss'],
-                dest: 'build/styles.css'
-            }
-        },
-        less: {
-//            options: {
-//                compress: true
-//            },
-            build: {
-                src : ['src/style1.less', 'src/style2.less'],
-                dest: 'build/styles.css'
+            dist: {
+                options: {
+                    compass: true,
+                    style: 'expanded'
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src',
+                    src: ['*.scss'],
+                    dest: 'public',
+                    ext: '.css'
+                }]
             }
         },
 
         csslint: {
             check: {
                 //src: 'build/styles.css'
-                src: '<%= sass.build.dest %>'
+                src: 'public/*.css'
             }
         },
 
@@ -37,7 +34,7 @@ module.exports = function (grunt) {
                     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
                 },
                 files: {
-                    'build/styles.min.css': '<%= sass.build.dest %>'
+                    'build/styles.min.css': 'public/*.css'
                 }
             }
         },
@@ -63,6 +60,7 @@ module.exports = function (grunt) {
     // plugin
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
