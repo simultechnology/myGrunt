@@ -1,0 +1,24 @@
+@import "compass";
+
+.sample {
+  @include border-radius(8px);
+  @include opacity(0.5);
+}
+
+.box-container {
+  @include box-shadow(0 0 1px #ccff00);
+}
+
+.element {
+  @include rotate();
+}
+
+.round-fix {
+  @include clearfix;
+}
+
+$padding : 10px;
+
+.image-sample {
+  width: image_width("sample.png") + ($padding * 10);
+}
