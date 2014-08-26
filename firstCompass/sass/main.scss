@@ -22,3 +22,8 @@ $padding : 10px;
 .image-sample {
   width: image_width("sample.png") + ($padding * 10);
 }
+
+// css sprite
+
+@import "icons/*.png";
+@include all-icons-sprites;
